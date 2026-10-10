@@ -1,0 +1,396 @@
+// Prisma schema for PostgreSQL Relational Application Database
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum RoleType {
+  STUDENT
+  ADMIN
+  RECRUITER
+}
+
+enum UserStatus {
+  ACTIVE
+  INACTIVE
+  PENDING
+}
+
+enum ApplicationStatus {
+  APPLIED
+  SHORTLISTED
+  ASSESSMENT_PENDING
+  ASSESSMENT_COMPLETED
+  INTERVIEW_SCHEDULED
+  INTERVIEW_COMPLETED
+  OFFERED
+  REJECTED
+}
+
+enum DifficultyLevel {
+  EASY
+  MEDIUM
+  HARD
+}
+
+enum QuestionStatus {
+  PENDING_APPROVAL
+  APPROVED
+  REJECTED
+}
+
+enum AttemptStatus {
+  IN_PROGRESS
+  COMPLETED
+  TIMED_OUT
+}
+
+enum InterviewStatus {
+  SCHEDULED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+enum EvaluationDecision {
+  HIRE
+  CONSIDER
+  REJECT
+}
+
+// ----------------------------------------
+// USER & ROLE MANAGEMENT
+// ----------------------------------------
+
+model User {
+  id           String      @id @default(uuid())
+  email        String      @unique
+  passwordHash String      @map("password_hash")
+  firstName    String      @map("first_name")
+  lastName     String      @map("last_name")
+  phone        String?
+  status       UserStatus  @default(ACTIVE)
+  createdAt    DateTime    @default(now()) @map("created_at")
+  updatedAt    DateTime    @updatedAt @map("updated_at")
+
+  roles        UserRole[]
+  student      StudentProfile?
+  admin        AdminProfile?
+  recruiter    RecruiterProfile?
+  notifications Notification[]
+  auditLogs    AuditLog[]
+
+  @@map("users")
+}
+
+model Role {
+  id        String     @id @default(uuid())
+  name      RoleType   @unique
+  users     UserRole[]
+
+  @@map("roles")
+}
+
+model UserRole {
+  id     String @id @default(uuid())
+  userId String @map("user_id")
+  roleId String @map("role_id")
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  role   Role   @relation(fields: [roleId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, roleId])
+  @@map("user_roles")
+}
+
+model StudentProfile {
+  id             String    @id @default(uuid())
+  userId         String    @unique @map("user_id")
+  studentId      String    @unique @map("student_id")
+  college        String
+  department     String
+  degree         String
+  graduationYear Int       @map("graduation_year")
+  cgpa           Float
+  location       String?
+  placed         Boolean   @default(false)
+  createdAt      DateTime  @default(now()) @map("created_at")
+  updatedAt      DateTime  @updatedAt @map("updated_at")
+
+  user           User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  resumes        Resume[]
+  applications   Application[]
+  assessmentAttempts AssessmentAttempt[]
+  interviews     InterviewSession[]
+
+  @@map("student_profiles")
+}
+
+model AdminProfile {
+  id          String   @id @default(uuid())
+  userId      String   @unique @map("user_id")
+  designation String
+  department  String
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("admin_profiles")
+}
+
+model RecruiterProfile {
+  id          String   @id @default(uuid())
+  userId      String   @unique @map("user_id")
+  companyId   String   @map("company_id")
+  designation String
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  company     Company  @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  @@map("recruiter_profiles")
+}
+
+model Company {
+  id          String   @id @default(uuid())
+  name        String
+  industry    String
+  website     String?
+  location    String
+  logoUrl     String?  @map("logo_url")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  recruiters  RecruiterProfile[]
+  jobs        Job[]
+
+  @@map("companies")
+}
+
+// ----------------------------------------
+// JOBS & APPLICATIONS
+// ----------------------------------------
+
+model Job {
+  id             String   @id @default(uuid())
+  companyId      String   @map("company_id")
+  title          String
+  department     String
+  employmentType String   @default("Full-time") @map("employment_type")
+  location       String
+  minCgpa        Float    @default(6.0) @map("min_cgpa")
+  deadline       DateTime
+  status         String   @default("OPEN")
+  createdAt      DateTime @default(now()) @map("created_at")
+  updatedAt      DateTime @updatedAt @map("updated_at")
+
+  company        Company  @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  applications   Application[]
+  assessments    Assessment[]
+
+  @@map("jobs")
+}
+
+model Resume {
+  id           String   @id @default(uuid())
+  studentId    String   @map("student_id")
+  fileName     String   @map("file_name")
+  fileUrl      String   @map("file_url")
+  mimeType     String   @default("application/pdf") @map("mime_type")
+  uploadedAt   DateTime @default(now()) @map("uploaded_at")
+  status       String   @default("PARSED")
+  qualityScore Float?   @map("quality_score")
+
+  student      StudentProfile @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  applications Application[]
+
+  @@map("resumes")
+}
+
+model Application {
+  id             String            @id @default(uuid())
+  jobId          String            @map("job_id")
+  studentId      String            @map("student_id")
+  resumeId       String?           @map("resume_id")
+  matchScore     Float?            @map("match_score")
+  status         ApplicationStatus @default(APPLIED)
+  aiRecommended  Boolean           @default(false) @map("ai_recommended")
+  humanReviewed  Boolean           @default(false) @map("human_reviewed")
+  notes          String?
+  createdAt      DateTime          @default(now()) @map("created_at")
+  updatedAt      DateTime          @updatedAt @map("updated_at")
+
+  job            Job               @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  student        StudentProfile    @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  resume         Resume?           @relation(fields: [resumeId], references: [id], onDelete: SetNull)
+  interviews     InterviewSession[]
+
+  @@unique([jobId, studentId])
+  @@map("applications")
+}
+
+// ----------------------------------------
+// ASSESSMENTS & ADAPTIVE TESTING
+// ----------------------------------------
+
+model Assessment {
+  id              String   @id @default(uuid())
+  jobId           String   @map("job_id")
+  title           String
+  durationMinutes Int      @default(30) @map("duration_minutes")
+  passingScore    Float    @default(60.0) @map("passing_score")
+  totalQuestions  Int      @default(10) @map("total_questions")
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+
+  job             Job      @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  questions       Question[]
+  attempts        AssessmentAttempt[]
+
+  @@map("assessments")
+}
+
+model Question {
+  id            String          @id @default(uuid())
+  assessmentId  String          @map("assessment_id")
+  text          String
+  options       String          // JSON array of strings
+  correctOption Int             @map("correct_option")
+  difficulty    DifficultyLevel @default(MEDIUM)
+  skill         String
+  topic         String?
+  status        QuestionStatus  @default(APPROVED)
+  createdAt     DateTime        @default(now()) @map("created_at")
+
+  assessment    Assessment      @relation(fields: [assessmentId], references: [id], onDelete: Cascade)
+  responses     AssessmentResponse[]
+
+  @@map("questions")
+}
+
+model AssessmentAttempt {
+  id                String          @id @default(uuid())
+  assessmentId      String          @map("assessment_id")
+  studentId         String          @map("student_id")
+  score             Float?
+  status            AttemptStatus   @default(IN_PROGRESS)
+  currentDifficulty DifficultyLevel @default(MEDIUM) @map("current_difficulty")
+  startedAt         DateTime        @default(now()) @map("started_at")
+  completedAt       DateTime?       @map("completed_at")
+
+  assessment        Assessment      @relation(fields: [assessmentId], references: [id], onDelete: Cascade)
+  student           StudentProfile  @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  responses         AssessmentResponse[]
+
+  @@map("assessment_attempts")
+}
+
+model AssessmentResponse {
+  id               String   @id @default(uuid())
+  attemptId        String   @map("attempt_id")
+  questionId       String   @map("question_id")
+  selectedOption   Int      @map("selected_option")
+  isCorrect        Boolean  @map("is_correct")
+  timeSpentSeconds Int      @default(0) @map("time_spent_seconds")
+  createdAt        DateTime @default(now()) @map("created_at")
+
+  attempt          AssessmentAttempt @relation(fields: [attemptId], references: [id], onDelete: Cascade)
+  question         Question          @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  @@map("assessment_responses")
+}
+
+// ----------------------------------------
+// AI INTERVIEW SESSIONS & EVALUATIONS
+// ----------------------------------------
+
+model InterviewSession {
+  id            String          @id @default(uuid())
+  applicationId String          @map("application_id")
+  studentId     String          @map("student_id")
+  status        InterviewStatus @default(SCHEDULED)
+  scheduledAt   DateTime        @default(now()) @map("scheduled_at")
+  completedAt   DateTime?       @map("completed_at")
+
+  application   Application     @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+  student       StudentProfile  @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  evaluation    InterviewEvaluation?
+
+  @@map("interview_sessions")
+}
+
+model InterviewEvaluation {
+  id                   String             @id @default(uuid())
+  sessionId            String             @unique @map("session_id")
+  overallScore         Float              @map("overall_score")
+  technicalScore       Float              @map("technical_score")
+  problemSolvingScore  Float              @map("problem_solving_score")
+  communicationScore   Float              @map("communication_score")
+  roleRelevanceScore   Float              @map("role_relevance_score")
+  decision             EvaluationDecision @default(CONSIDER)
+  createdAt            DateTime           @default(now()) @map("created_at")
+
+  session              InterviewSession   @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  @@map("interview_evaluations")
+}
+
+// ----------------------------------------
+// NOTIFICATIONS, ANNOUNCEMENTS, AUDIT LOGS
+// ----------------------------------------
+
+model Notification {
+  id        String   @id @default(uuid())
+  userId    String   @map("user_id")
+  title     String
+  message   String
+  type      String   @default("INFO")
+  isRead    Boolean  @default(false) @map("is_read")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("notifications")
+}
+
+model Announcement {
+  id             String   @id @default(uuid())
+  title          String
+  content        String
+  category       String   @default("GENERAL")
+  targetAudience String   @default("ALL") @map("target_audience")
+  createdAt      DateTime @default(now()) @map("created_at")
+
+  @@map("announcements")
+}
+
+model AuditLog {
+  id         String   @id @default(uuid())
+  userId     String?  @map("user_id")
+  action     String
+  entityType String   @map("entity_type")
+  entityId   String?  @map("entity_id")
+  details    String?  // JSON string
+  ipAddress  String?  @map("ip_address")
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  user       User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@map("audit_logs")
+}
+
+model SystemConfiguration {
+  id        String   @id @default(uuid())
+  key       String   @unique
+  value     String
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("system_configuration")
+}

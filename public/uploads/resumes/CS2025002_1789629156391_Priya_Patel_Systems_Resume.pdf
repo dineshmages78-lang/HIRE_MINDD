@@ -1,0 +1,59 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 1455 >>
+stream
+BT
+/F1 10 Tf
+1 0 0 1 50 750 Tm (Priya Patel) Tj
+1 0 0 1 50 732 Tm (Email: priya.patel@example.edu | Phone: +91 91234 56789 | Location: Mumbai, India) Tj
+1 0 0 1 50 714 Tm () Tj
+1 0 0 1 50 696 Tm (SUMMARY) Tj
+1 0 0 1 50 678 Tm (Systems software engineer passionate about high-performance computing, distributed consensus, and cloud native architectures.) Tj
+1 0 0 1 50 660 Tm () Tj
+1 0 0 1 50 642 Tm (TECHNICAL COMPETENCIES) Tj
+1 0 0 1 50 624 Tm (Languages: Rust, C++, Go, Python) Tj
+1 0 0 1 50 606 Tm (Cloud & Systems: Docker, Kubernetes, AWS, Linux, CI/CD) Tj
+1 0 0 1 50 588 Tm (Databases: Redis, PostgreSQL, MySQL) Tj
+1 0 0 1 50 570 Tm () Tj
+1 0 0 1 50 552 Tm (EDUCATION) Tj
+1 0 0 1 50 534 Tm (Bachelor of Technology in Information Technology) Tj
+1 0 0 1 50 516 Tm (National Institute of Technology | CGPA: 9.15) Tj
+1 0 0 1 50 498 Tm () Tj
+1 0 0 1 50 480 Tm (EXPERIENCE) Tj
+1 0 0 1 50 462 Tm (Cloud Engineering Intern | CloudScale Systems \(May 2024 - July 2024\)) Tj
+1 0 0 1 50 444 Tm (- Designed Kubernetes operators and automated deployment pipelines with GitHub Actions.) Tj
+1 0 0 1 50 426 Tm () Tj
+1 0 0 1 50 408 Tm (PROJECTS) Tj
+1 0 0 1 50 390 Tm (High-Performance Async Cache Engine \(Rust, Tokio, Redis\)) Tj
+1 0 0 1 50 372 Tm (- Implemented an in-memory asynchronous cache with lock-free data structures.) Tj
+1 0 0 1 50 354 Tm () Tj
+1 0 0 1 50 336 Tm (SOFT SKILLS) Tj
+1 0 0 1 50 318 Tm (Problem Solving, Team Collaboration, Leadership, Critical Thinking) Tj
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000241 00000 n 
+0000001764 00000 n 
+trailer
+<< /Size 6 /Root 1 0 R >>
+startxref
+1834
+%%EOF

@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Manual - Agentic AI Placement System</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 16mm 14mm 16mm 14mm;
+    }
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.6;
+      color: #1f2937;
+      background-color: #ffffff;
+      margin: 0;
+      padding: 30px;
+      font-size: 13px;
+    }
+    .no-print-bar {
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      padding: 12px 18px;
+      border-radius: 8px;
+      margin-bottom: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .print-btn {
+      background: #2563eb;
+      color: #ffffff;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 13px;
+    }
+    .print-btn:hover {
+      background: #1d4ed8;
+    }
+    .header-banner {
+      background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+      color: #ffffff;
+      padding: 24px 28px;
+      border-radius: 8px;
+      margin-bottom: 24px;
+      page-break-after: avoid;
+    }
+    .header-banner h1 {
+      margin: 0 0 6px 0;
+      font-size: 24px;
+      font-weight: 700;
+      color: #ffffff;
+      border: none;
+      padding: 0;
+    }
+    .header-banner p {
+      margin: 0;
+      font-size: 13.5px;
+      color: #e0e7ff;
+    }
+    h1 {
+      font-size: 20px;
+      font-weight: 700;
+      color: #111827;
+      border-bottom: 2px solid #e5e7eb;
+      padding-bottom: 6px;
+      margin-top: 26px;
+      margin-bottom: 12px;
+      page-break-after: avoid;
+    }
+    h2 {
+      font-size: 16px;
+      font-weight: 600;
+      color: #1f2937;
+      border-bottom: 1px solid #f3f4f6;
+      padding-bottom: 4px;
+      margin-top: 20px;
+      margin-bottom: 10px;
+      page-break-after: avoid;
+    }
+    h3 {
+      font-size: 14px;
+      font-weight: 600;
+      color: #374151;
+      margin-top: 16px;
+      margin-bottom: 8px;
+      page-break-after: avoid;
+    }
+    p {
+      margin: 0 0 10px 0;
+    }
+    ul, ol {
+      margin: 0 0 12px 0;
+      padding-left: 24px;
+    }
+    li {
+      margin-bottom: 4px;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #e5e7eb;
+      margin: 20px 0;
+    }
+    blockquote {
+      margin: 12px 0;
+      padding: 10px 16px;
+      background-color: #f8fafc;
+      border-left: 4px solid #3b82f6;
+      color: #334155;
+      border-radius: 0 6px 6px 0;
+      page-break-inside: avoid;
+    }
+    .table-container {
+      margin: 14px 0;
+      page-break-inside: avoid;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+    th, td {
+      border: 1px solid #e2e8f0;
+      padding: 7px 10px;
+      text-align: left;
+    }
+    th {
+      background-color: #f1f5f9;
+      color: #0f172a;
+      font-weight: 600;
+    }
+    tr:nth-child(even) td {
+      background-color: #f8fafc;
+    }
+    .code-block {
+      background-color: #0f172a;
+      color: #f8fafc;
+      border-radius: 6px;
+      margin: 12px 0;
+      overflow: hidden;
+      page-break-inside: avoid;
+      border: 1px solid #334155;
+    }
+    .code-lang {
+      background-color: #1e293b;
+      color: #94a3b8;
+      font-size: 10.5px;
+      padding: 3px 12px;
+      text-transform: uppercase;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+    pre {
+      margin: 0;
+      padding: 10px 14px;
+      overflow-x: auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 11.5px;
+      line-height: 1.5;
+    }
+    code.inline-code {
+      background-color: #f1f5f9;
+      color: #dc2626;
+      padding: 1.5px 5px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+    .math-block {
+      background-color: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      color: #166534;
+      padding: 10px 14px;
+      border-radius: 6px;
+      margin: 12px 0;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 13px;
+      font-weight: 600;
+      text-align: center;
+      page-break-inside: avoid;
+    }
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .badge-blue { background: #dbeafe; color: #1e40af; }
+    .badge-green { background: #dcfce7; color: #166534; }
+    .badge-purple { background: #f3e8ff; color: #6b21a8; }
+    @media print {
+      body {
+        padding: 0;
+        font-size: 11.5px;
+      }
+      .no-print-bar {
+        display: none !important;
+      }
+      .code-block {
+        background-color: #0f172a !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      th {
+        background-color: #f1f5f9 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .header-banner {
+        background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%) !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .math-block {
+        background-color: #f0fdf4 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="no-print-bar">
+    <div>
+      <strong>Print or Save to PDF:</strong> Click the button on the right, or press <kbd>Ctrl + P</kbd> in your browser and select <em>"Save as PDF"</em>.
+    </div>
+    <button class="print-btn" onclick="window.print()">Print / Save as PDF</button>
+  </div>
+
+  <div class="header-banner">
+    <h1>Platform User Manual</h1>
+    <p>Agentic AI-Based Intelligent Recruitment and Placement System for Automated Resume Screening, Adaptive Assessment, and Interview Evaluation</p>
+  </div>
+
+  <h1>1. Platform Access &amp; Default Logins</h1>
+  <p>The application is hosted locally at: <strong><code>http://localhost:3000</code></strong></p>
+  
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>Portal</th>
+          <th>Email Address</th>
+          <th>Password</th>
+          <th>Role Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="badge badge-blue">Admin (TPO)</span></td>
+          <td><code>admin@placement.edu</code></td>
+          <td><code>Placement@123</code></td>
+          <td>Head of Training &amp; Placement Cell</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-purple">Recruiter (Google)</span></td>
+          <td><code>sarah.recruiter@google.com</code></td>
+          <td><code>Placement@123</code></td>
+          <td>Google Campus Talent Lead</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-purple">Recruiter (Microsoft)</span></td>
+          <td><code>michael.recruiter@microsoft.com</code></td>
+          <td><code>Placement@123</code></td>
+          <td>Microsoft University Recruiter</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-green">Student (Alex)</span></td>
+          <td><code>student1@placement.edu</code></td>
+          <td><code>Placement@123</code></td>
+          <td>Final-Year CS Student, 8.65 CGPA</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-green">Student (Priya)</span></td>
+          <td><code>student2@placement.edu</code></td>
+          <td><code>Placement@123</code></td>
+          <td>Final-Year CS Student, 9.15 CGPA</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-green">Student (Rohan)</span></td>
+          <td><code>student3@placement.edu</code></td>
+          <td><code>Placement@123</code></td>
+          <td>Final-Year IT Student, 7.85 CGPA</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr />
+
+  <h1>2. Student Guide</h1>
+
+  <h2>2.1 Registration &amp; Login</h2>
+  <ul>
+    <li>Navigate to <code>http://localhost:3000/register</code> to register as a new campus candidate.</li>
+    <li>Fill in your institutional email, password, student roll number, department, degree, graduation year, and current CGPA.</li>
+    <li>Sign in via <code>http://localhost:3000/login</code>.</li>
+  </ul>
+
+  <h2>2.2 Resume Upload &amp; AI Quality Scoring</h2>
+  <p>Route: <strong><code>/student/resume</code></strong></p>
+  <ul>
+    <li><strong>Upload PDF Resume:</strong> Select and upload your latest resume.</li>
+    <li><strong>Resume Analysis Agent Execution:</strong> The AI extracts technical skills (Programming, Frameworks, Cloud, Databases), soft skills, work experience, projects, and certifications.</li>
+    <li><strong>Resume Quality Score (0–100):</strong> View instant feedback detailing strengths and areas for improvement.</li>
+    <li><strong>ChromaDB Vector Indexing:</strong> Embeddings are automatically indexed for candidate-job semantic retrieval.</li>
+  </ul>
+
+  <h2>2.3 Browsing Jobs &amp; Personalized AI Match Scores</h2>
+  <p>Route: <strong><code>/student/jobs</code></strong></p>
+  <ul>
+    <li>Browse open campus recruitment drives across Google, Microsoft, Amazon AWS, and partner firms.</li>
+    <li>Each job displays a personalized <strong>Match Score (%)</strong> computed by the <strong>Hybrid Candidate Matching Agent</strong>.</li>
+    <li>Inspect matched skills (green badges), missing skills (red badges), and CGPA eligibility cutoffs.</li>
+    <li>Click <strong>Apply Now</strong> to submit your application.</li>
+  </ul>
+
+  <h2>2.4 Taking Adaptive Skill Assessments</h2>
+  <p>Route: <strong><code>/student/assessments</code></strong></p>
+  <ul>
+    <li>Launch tests invited by recruiters or placement officers.</li>
+    <li><strong>Item Response Theory (IRT) Adaptive Engine:</strong> Questions dynamically scale in difficulty.
+      <ul>
+        <li>Correct Answer &rarr; Escalates from <strong>Easy &rarr; Medium &rarr; Hard</strong>.</li>
+        <li>Incorrect Answer &rarr; De-escalates to reinforce foundational knowledge.</li>
+      </ul>
+    </li>
+    <li>Submit test to immediately receive your overall score, mastery level, and topic analysis.</li>
+  </ul>
+
+  <h2>2.5 AI Technical Mock &amp; Screening Interviews</h2>
+  <p>Route: <strong><code>/student/interviews</code></strong></p>
+  <ul>
+    <li>Launch the <strong>Interactive Conversational AI Interviewer</strong>.</li>
+    <li>The AI introduces itself and asks tailored role-specific questions.</li>
+    <li>As you respond, the agent probes deeper into edge cases, architecture, and code decisions.</li>
+    <li>Upon completion, the <strong>Interview Evaluation Agent</strong> scores your performance across 5 pillars (Technical Knowledge, Problem Solving, Communication, Conceptual Understanding, Role Relevance) and renders a hiring decision: <strong>HIRE / CONSIDER / REJECT</strong>.</li>
+  </ul>
+
+  <h2>2.6 Skill Gap Analysis &amp; Learning Roadmap</h2>
+  <p>Route: <strong><code>/student/skills</code></strong></p>
+  <ul>
+    <li>Cross-examines target job requirements against your resume, test scores, and interview performance.</li>
+    <li>Provides a <strong>Skill Gap Matrix</strong> with severity levels (None, Low, Medium, High, Critical).</li>
+    <li>Generates a <strong>Multi-Phase Learning Roadmap</strong> with recommended project ideas and timelines.</li>
+  </ul>
+
+  <hr />
+
+  <h1>3. Administrator / Placement Officer (TPO) Guide</h1>
+
+  <h2>3.1 Real-Time Placement KPI Dashboard</h2>
+  <p>Route: <strong><code>/admin/dashboard</code></strong></p>
+  <p>Live metrics tracking total registered students, active corporate drives, student applications, completed assessments, conducted AI interviews, and placement conversion rates.</p>
+
+  <h2>3.2 Student Management &amp; Academic Records</h2>
+  <p>Route: <strong><code>/admin/students</code></strong></p>
+  <p>Filter candidates across departments (CS, IT, ECE, AI/ML, Data Science), degree types, and CGPAs. View resume quality scores and drive participation records.</p>
+
+  <h2>3.3 Managing Companies &amp; Job Description (JD) AI Ingestion</h2>
+  <p>Routes: <strong><code>/admin/companies</code></strong> and <strong><code>/admin/jobs</code></strong></p>
+  <ul>
+    <li>Add corporate hiring partners and post campus jobs.</li>
+    <li>Paste raw JD text &rarr; The <strong>JD Analysis Agent</strong> extracts required technical skills, preferred competencies, academic eligibility cutoffs, and generates vector embeddings in ChromaDB.</li>
+  </ul>
+
+  <h2>3.4 Candidate Ranking &amp; Human-in-the-Loop Overrides</h2>
+  <p>Route: <strong><code>/admin/candidates</code></strong></p>
+  <ul>
+    <li>Applicants are ranked by the <strong>Hybrid Match Score</strong>.</li>
+    <li>Inspect the explainability modal showing exact sub-scores and textual citations.</li>
+    <li><strong>Administrative Override:</strong> Modify applicant status to <code>SHORTLISTED</code> or <code>OFFERED</code> with administrative notes.</li>
+  </ul>
+
+  <h2>3.5 Assessment Creation &amp; AI Question Generation</h2>
+  <p>Route: <strong><code>/admin/assessments</code></strong></p>
+  <p>Generate authenticated 4-option MCQs using the <strong>Question Generation Agent</strong>, complete with explanations, skill tagging, and difficulty levels.</p>
+
+  <h2>3.6 Campus Analytics &amp; Pipeline Visualizations</h2>
+  <p>Route: <strong><code>/admin/analytics</code></strong></p>
+  <p>Interactive charts for department placement distributions, assessment score histograms, skill demand vs. campus supply, and recruitment funnel stages.</p>
+
+  <h2>3.7 Audit Logs &amp; AI Agent Run Telemetry</h2>
+  <p>Routes: <strong><code>/admin/audit-logs</code></strong> and <strong><code>/admin/agent-logs</code></strong></p>
+  <ul>
+    <li><strong>PostgreSQL Audit Logs:</strong> Immutable records of all user actions, logins, status changes, and test submissions.</li>
+    <li><strong>MongoDB Agent Runs:</strong> Comprehensive telemetry tracking execution times, models, retrieval sources, and output snapshots for all 8 agents.</li>
+  </ul>
+
+  <hr />
+
+  <h1>4. Corporate Recruiter Guide</h1>
+  <p>Routes: <strong><code>/recruiter/dashboard</code></strong>, <strong><code>/recruiter/jobs</code></strong>, <strong><code>/recruiter/candidates</code></strong></p>
+  <ul>
+    <li>Post company job requirements and define CGPA criteria.</li>
+    <li>View candidate pools ranked by the Hybrid Matching Agent.</li>
+    <li>Inspect verified resumes, adaptive test accuracy, and 5-pillar AI interview evaluation reports to issue campus offers.</li>
+  </ul>
+
+  <hr />
+
+  <h1>5. AI Architecture &amp; Hybrid Scoring Formula</h1>
+
+  <div class="code-block">
+    <div class="code-lang">Hybrid Scoring Formula</div>
+    <pre><code>Final Score = 0.30 * Semantic + 0.40 * Skill Overlap + 0.20 * Eligibility + 0.10 * Experience</code></pre>
+  </div>
+
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>Pillar</th>
+          <th>Weight</th>
+          <th>Evaluation Mechanism</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Semantic Match</strong></td>
+          <td>30%</td>
+          <td>Dense cosine similarity between student and job vector embeddings in ChromaDB.</td>
+        </tr>
+        <tr>
+          <td><strong>Skill Overlap</strong></td>
+          <td>40%</td>
+          <td>Hard token matching between student competencies and mandatory technical requirements.</td>
+        </tr>
+        <tr>
+          <td><strong>Eligibility</strong></td>
+          <td>20%</td>
+          <td>Boolean verification of student CGPA against minimum job cutoff.</td>
+        </tr>
+        <tr>
+          <td><strong>Experience</strong></td>
+          <td>10%</td>
+          <td>Evaluation of internship duration, project complexity, and portfolio relevance.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr />
+
+  <h1>6. Responsible AI &amp; Transparency</h1>
+  <ul>
+    <li><strong>Zero Demographic Bias:</strong> Protected characteristics (gender, race, religion, caste, disability) are strictly excluded from ranking models.</li>
+    <li><strong>Explainable Recommendations:</strong> Every match provides citations and clear reasoning.</li>
+    <li><strong>Human-in-the-Loop Authority:</strong> AI acts as decision support; final authority rests with placement officers and recruiters.</li>
+  </ul>
+
+</body>
+</html>

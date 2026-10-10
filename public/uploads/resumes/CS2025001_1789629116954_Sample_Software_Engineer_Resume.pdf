@@ -1,0 +1,68 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 2513 >>
+stream
+BT
+/F1 10 Tf
+1 0 0 1 50 750 Tm (Alex Sharma) Tj
+1 0 0 1 50 732 Tm (Email: alex.sharma@example.edu | Phone: +91 98765 43210 | Location: New Delhi, India) Tj
+1 0 0 1 50 714 Tm (GitHub: github.com/alexsharma | LinkedIn: linkedin.com/in/alexsharma) Tj
+1 0 0 1 50 696 Tm () Tj
+1 0 0 1 50 678 Tm (PROFESSIONAL SUMMARY) Tj
+1 0 0 1 50 660 Tm (Final-year Computer Science Engineering student with strong hands-on experience in full-stack) Tj
+1 0 0 1 50 642 Tm (web development, distributed systems, machine learning, and cloud infrastructure.) Tj
+1 0 0 1 50 624 Tm () Tj
+1 0 0 1 50 606 Tm (TECHNICAL SKILLS) Tj
+1 0 0 1 50 588 Tm (Programming Languages: Python, TypeScript, JavaScript, Java, C++, SQL, Go) Tj
+1 0 0 1 50 570 Tm (Frameworks & Libraries: React, Next.js, Node.js, Express, FastAPI, Django, Tailwind CSS) Tj
+1 0 0 1 50 552 Tm (Databases & Storage: PostgreSQL, MongoDB, Redis, MySQL) Tj
+1 0 0 1 50 534 Tm (Cloud & DevOps: Docker, Kubernetes, AWS, Git, GitHub Actions, Linux, CI/CD) Tj
+1 0 0 1 50 516 Tm (AI & Machine Learning: PyTorch, TensorFlow, Scikit-Learn, Pandas, NumPy) Tj
+1 0 0 1 50 498 Tm () Tj
+1 0 0 1 50 480 Tm (EDUCATION) Tj
+1 0 0 1 50 462 Tm (Bachelor of Technology in Computer Science & Engineering) Tj
+1 0 0 1 50 444 Tm (National Institute of Technology \(2021 - 2025\) | CGPA: 8.65 / 10.0) Tj
+1 0 0 1 50 426 Tm () Tj
+1 0 0 1 50 408 Tm (WORK EXPERIENCE) Tj
+1 0 0 1 50 390 Tm (Software Engineering Intern | TechNexus Solutions \(June 2024 - August 2024\)) Tj
+1 0 0 1 50 372 Tm (- Architected scalable RESTful microservices in Node.js and PostgreSQL serving 15,000+ daily requests.) Tj
+1 0 0 1 50 354 Tm (- Optimized slow analytical database queries and added B-Tree indexes, reducing p95 latency by 38%.) Tj
+1 0 0 1 50 336 Tm (- Collaborated with cross-functional teams in bi-weekly Agile sprints and CI/CD pipelines.) Tj
+1 0 0 1 50 318 Tm () Tj
+1 0 0 1 50 300 Tm (PROJECTS) Tj
+1 0 0 1 50 282 Tm (AI-Driven Smart Campus Recruitment Portal \(Next.js, Python, PostgreSQL, ChromaDB\)) Tj
+1 0 0 1 50 264 Tm (- Built end-to-end recruitment management portal with vector semantic search and adaptive testing.) Tj
+1 0 0 1 50 246 Tm (Distributed Key-Value Store \(Go, Distributed Systems\)) Tj
+1 0 0 1 50 228 Tm (- Implemented Raft consensus protocol for state machine replication across a 5-node cluster.) Tj
+1 0 0 1 50 210 Tm () Tj
+1 0 0 1 50 192 Tm (CERTIFICATIONS & ACHIEVEMENTS) Tj
+1 0 0 1 50 174 Tm (- AWS Certified Cloud Practitioner) Tj
+1 0 0 1 50 156 Tm (- HackerRank Problem Solving \(Gold Badge, 5-Star\)) Tj
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000241 00000 n 
+0000002822 00000 n 
+trailer
+<< /Size 6 /Root 1 0 R >>
+startxref
+2892
+%%EOF
